@@ -4,27 +4,32 @@ export function Post() {
   return (
     <article className={styles.post}>
       <header>
-        <div className={styles.author}>
-          <img className={styles.avatar} src="https://github.com/diebraga.png" />
-
+        <div className={styles.author} style={{ display: 'flex' }}>
+          <img src="https://github.com/diebraga.png" className={styles.avatar} />
           <div className={styles.authorInfo}>
             <strong>Diego Braga</strong>
             <span>Fullstack Developer</span>
-
           </div>
         </div>
-
-        <time title='12 jun 2022' dateTime='2022-06-12 10:33'>
-          Published 2hrs ago.
-        </time>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <time title="11 de maio às 08h00" dateTime='2022-06-22 12:00:00'>
+            Published 2hrs ago.
+          </time>
+        </div>
       </header>
 
       <div className={styles.content}>
-        <p>aaaaaa</p>
-        <p>hhggfftyuujvjjjjjjjgggggggggggggggjjjjjjjgggggggggggggggjjjjjjjggggggggggggggg</p>
-        <p><a href=""></a>jjjjjjjggggggggggggggg</p>
-        <p><a href="">jkkkkokgggfffyyyuuiooooooo</a></p>
+        <p>jjhhhg</p>
+        <p>jjuuy</p>
+        <p><a href="">jjuyyt</a></p>
+        <p>
+          <a href="ooihgfs">llll</a>{' '}
+          <a href="ooihgfs">llll</a>{' '}
+          <a href="ooihgfs">llll</a>
+        </p>
       </div>
+
+
     </article>
   )
 }
