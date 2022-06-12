@@ -2,20 +2,32 @@ import Avatar from '../Avatar/Avatar'
 import { Comment } from '../Comment'
 import styles from './Post.module.css'
 
-export function Post() {
+type PostProps = {
+  avatarUrl: string;
+  authorName: string;
+  publishedAt: Date;
+  authorJobTitle: string;
+}
+
+export function Post({
+  avatarUrl,
+  authorName,
+  publishedAt,
+  authorJobTitle,
+}: PostProps) {
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author} style={{ display: 'flex' }}>
-          <Avatar src="https://github.com/diebraga.png" hasBorder />
+          <Avatar src={avatarUrl} hasBorder />
           <div className={styles.authorInfo}>
-            <strong>Diego Braga</strong>
-            <span>Fullstack Developer</span>
+            <strong>{authorName}</strong>
+            <span>{authorJobTitle}</span>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <time title="11 de maio às 08h00" dateTime='2022-06-22 12:00:00'>
-            Published 2hrs ago.
+          <time title={'timeTitle'} dateTime={'dateTime'}>
+            {'publishedAt'}
           </time>
         </div>
       </header>
