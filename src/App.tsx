@@ -13,7 +13,7 @@ const posts = [
     content: [
       { type: 'paragraph', content: 'Hello guys!' },
       { type: 'paragraph', content: "I just aploaded my newest project on github, let's star it" },
-      { type: 'link', content: '<a href="">hudsontexeira/newestproject.com</a>' },
+      { type: 'link', content: 'hudsontexeira/newestproject.com' },
     ]
   },
   {
@@ -25,7 +25,7 @@ const posts = [
     content: [
       { type: 'paragraph', content: 'Hello guys!' },
       { type: 'paragraph', content: "I just aploaded my newest project on github, let's star it" },
-      { type: 'link', content: '<a href="">diebraga/die.com</a>' },
+      { type: 'link', content: 'diebraga/die.com' },
     ]
   }
 ]
@@ -47,6 +47,7 @@ function App() {
                 authorName={post.authorName}
                 avatarUrl={post.avatarUrl}
                 publishedAt={post.publishedAt}
+                content={post.content}
               />
             )
           })}

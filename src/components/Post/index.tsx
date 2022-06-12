@@ -1,12 +1,19 @@
 import Avatar from '../Avatar/Avatar'
 import { Comment } from '../Comment'
+import { format, formatDistanceToNow } from "date-fns";
 import styles from './Post.module.css'
+
+type ContentType = {
+  content: string;
+  type: string;
+}
 
 type PostProps = {
   avatarUrl: string;
   authorName: string;
   publishedAt: Date;
   authorJobTitle: string;
+  content: ContentType[]
 }
 
 export function Post({
@@ -14,7 +21,14 @@ export function Post({
   authorName,
   publishedAt,
   authorJobTitle,
+  content
 }: PostProps) {
+  const formateDate = format(publishedAt, "d 'of' LLLL HH:mm'h'")
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    addSuffix: true
+  })
+
   return (
     <article className={styles.post}>
       <header>
@@ -26,21 +40,17 @@ export function Post({
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <time title={'timeTitle'} dateTime={'dateTime'}>
-            {'publishedAt'}
+          <time title={formateDate} dateTime={publishedAt.toISOString()}>
+            {publishedDateRelativeToNow}
           </time>
         </div>
       </header>
 
       <div className={styles.content}>
-        <p>jjhhhg</p>
-        <p>jjuuy</p>
-        <p><a href="">jjuyyt</a></p>
-        <p>
-          <a href="ooihgfs">llll</a>{' '}
-          <a href="ooihgfs">llll</a>{' '}
-          <a href="ooihgfs">llll</a>
-        </p>
+        {content.map(line => {
+          if (line.type === 'paragraph') return <p>{line.content}</p>
+          else if (line.type === 'link') return <p><a href="#">{line.content}</a></p>
+        })}
       </div>
 
       <form className={styles.commentForm}>
