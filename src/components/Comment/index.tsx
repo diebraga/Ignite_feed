@@ -9,9 +9,11 @@ type CommentTypes = {
 
 interface CommentProps {
   comment: CommentTypes;
+  deleteComment: (index: number) => void
+  commentIndex: number
 }
 
-export function Comment({ comment }: CommentProps) {
+export function Comment({ comment, deleteComment, commentIndex }: CommentProps) {
   return (
     <div className={styles.comment}>
       <Avatar src="https://github.com/diebraga.png" hasBorder={false} />
@@ -28,7 +30,7 @@ export function Comment({ comment }: CommentProps) {
 
             </div>
 
-            <button title='Delete comment'>
+            <button title='Delete comment' onClick={() => deleteComment(commentIndex)}>
               <Trash size={24} />
             </button>
           </header>

@@ -45,11 +45,19 @@ export function Post({
     addSuffix: true
   })
 
-  function handleAddComment(e: FormEvent) {
+  function handleAddComment(e: FormEvent): void {
     e.preventDefault()
     if (newCommentText === '') null;
     else setComments(prev => [...prev, { id: prev.length + 1, comment: newCommentText }])
   }
+
+  function deleteComment(index: number): void {
+    setComments([
+      ...comments.slice(0, index),
+      ...comments.slice(index + 1, comments.length)
+    ]);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -69,8 +77,8 @@ export function Post({
 
       <div className={styles.content}>
         {content.map(line => {
-          if (line.type === 'paragraph') return <p>{line.content}</p>
-          else if (line.type === 'link') return <p><a href="#">{line.content}</a></p>
+          if (line.type === 'paragraph') return <p key={line.content}>{line.content}</p>
+          else if (line.type === 'link') return <p key={line.content}><a href="#">{line.content}</a></p>
         })}
       </div>
 
@@ -92,9 +100,14 @@ export function Post({
       </form>
 
       <div className={styles.commentList}>
-        {comments.map(comment => {
+        {comments.map((comment, index) => {
           return (
-            <Comment comment={comment} key={comment.id}/>
+            <Comment
+              comment={comment}
+              key={comment.id}
+              deleteComment={deleteComment}
+              commentIndex={index}
+            />
           )
         })}
       </div>
