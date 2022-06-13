@@ -1,7 +1,14 @@
 import Avatar from '../Avatar/Avatar'
+import { FormEvent } from "react";
 import { Comment } from '../Comment'
 import { format, formatDistanceToNow } from "date-fns";
 import styles from './Post.module.css'
+import { useState } from 'react';
+
+const commentsArray = [
+  { id: 1, comment: 'Hey this is so cool' },
+  { id: 2, comment: "Congrats for your repo!" }
+]
 
 type ContentType = {
   content: string;
@@ -16,6 +23,11 @@ type PostProps = {
   content: ContentType[]
 }
 
+type CommentTypes = {
+  comment: string;
+  id: number;
+}
+
 export function Post({
   avatarUrl,
   authorName,
@@ -23,12 +35,21 @@ export function Post({
   authorJobTitle,
   content
 }: PostProps) {
+  const [comments, setComments] = useState<CommentTypes[]>(commentsArray)
+
+  const [newCommentText, setNewCommentText] = useState('')
+
   const formateDate = format(publishedAt, "d 'of' LLLL HH:mm'h'")
 
   const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
     addSuffix: true
   })
 
+  function handleAddComment(e: FormEvent) {
+    e.preventDefault()
+    if (newCommentText === '') null;
+    else setComments(prev => [...prev, { id: prev.length + 1, comment: newCommentText }])
+  }
   return (
     <article className={styles.post}>
       <header>
@@ -53,13 +74,14 @@ export function Post({
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleAddComment} className={styles.commentForm}>
         <strong>
           Leave your feedbacks
         </strong>
 
         <textarea
           placeholder='leave a comment'
+          onChange={e => setNewCommentText(e.target.value)}
         />
 
         <footer>
@@ -70,9 +92,11 @@ export function Post({
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return (
+            <Comment comment={comment} key={comment.id}/>
+          )
+        })}
       </div>
     </article>
   )
