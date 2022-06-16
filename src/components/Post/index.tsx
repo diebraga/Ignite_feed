@@ -93,7 +93,7 @@ export function Post({
         />
 
         <footer>
-          <button type='submit'>
+          <button type='submit' disabled={newCommentText === ''}>
             Publish
           </button>
         </footer>
